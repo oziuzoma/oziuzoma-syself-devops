@@ -14,7 +14,7 @@ whether your application needs a relational or non-relational database and which
 
  I will also pick postgres as my preferred engine because i am more familiar with it.
 
- # Question 2 - Production-grade Kubernetes enviroment
+ # Question 2 - Production-grade Kubernetes environment
 
  For a self-managed kubermetes production environment. We can use the kubeadm tool to provision kubernetes on the VMs. We can a tool like terraform or vagrant to provision our VMs to automate the process and mainatain uniformity acrooss the environment. In order for high availabilty we will provison 2 control planes and at least 3 worker nodes. All nodes will be provioned in the same private network.
 
@@ -35,7 +35,7 @@ whether your application needs a relational or non-relational database and which
     7. Now you have a cluster of 3 worker and 2 masters with kubernetes installed
 
  ### Control Plane Components:
-    **etcd** - "Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data." It should have backup in place and also high availabilty (at least 3 members).
+    ** etcd ** - "Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data." It should have backup in place and also high availabilty (at least 3 members).
 
     **kube-apiserver** - "The API server is a component of the Kubernetes control plane that exposes the Kubernetes API. The API server is the front end for the Kubernetes control plane."
 
