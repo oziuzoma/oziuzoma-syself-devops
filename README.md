@@ -51,7 +51,9 @@ whether your application needs a relational or non-relational database and which
 
     `kube-proxy` - "A network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept."
 
-
+Storage: 
+Security:
+Disaster Recovery and Backup:
 
  ## REFERENCES:
 
