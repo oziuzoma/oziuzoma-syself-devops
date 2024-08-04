@@ -20,11 +20,17 @@ whether your application needs a relational or non-relational database and which
 
  On a high level to install kubernetes with kubeadm:
     1. Install containter runtime
+
     2. Install kubeadm , kubelet and kubectl
-    3. Configure cgroup driver
+
+    3. Configure cgroup drivers
+
     4. Initialize the control plane using kubeadm init and passing the neccessary arguments
+
     5. Deploy a pod network (CNI plugin) like calico and weave-net especially if you plan to use network policies later for security
+
     6. Join the worker nodes using kudeadm join and token from the output from step 4.
+
     7. Now you have a cluster of 3 worker and 2 masters with kubernetes installed
 
  ### Control Plane Components:
@@ -42,7 +48,7 @@ whether your application needs a relational or non-relational database and which
 
     **container runtime** - "A fundamental component that empowers Kubernetes to run containers effectively. It is responsible for managing the execution and lifecycle of containers within the Kubernetes environment."
 
-    **kube-proxy** - "A network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept."
+    __kube-proxy__ - "A network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept."
 
 
 
