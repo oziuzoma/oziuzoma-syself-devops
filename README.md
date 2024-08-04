@@ -2,7 +2,7 @@
 
 # Question 1 - Helm Chart to deploy a sample backend
 
-Helm Chart for the backend application can be found in the repo called samplebackend-helm-chart. It deploys a nodejs backend application which is a placeholder image for the purpose of this task. Since it is a backend application it will be exposed via a ClusterIP service for internal cluster exposure only on port 5000. For Secret Management, I will use an external secret manager or vault to store secrets and have them synced into the cluster. It is not best practice to push secrets into version control.For example, I have worked with azure key vault where the controller is installed into the cluster then we create azure key vault resouces which reference the secrets in azure and have them synced into the cluster to be used by pods/deployments.That is the general idea for secret management tools and a better way to handled kubernetes secrets.
+Helm Chart for the backend application can be found in the repo called samplebackend-helm-chart. It deploys a NodeJS backend application which is a placeholder image for the purpose of this task. Since it is a backend application it will be exposed on port 5000 via a ClusterIP service for internal cluster exposure only. For Secret Management, I will use an external secret manager or vault to store secrets and have them synced into the cluster. It is not best practice to push secrets into version control.For example, I have worked with azure key vault where the controller is installed into the cluster then we create azure key vault resouces which reference the secrets in azure and have them synced into the cluster to be used by pods/deployments.That is the general idea for secret management tools and a better way to handled kubernetes secrets.
 
 ## There are a few considerations to make to selecting a database:
 
@@ -10,7 +10,7 @@ Whether you want a self managed database or a fully managed database.
 
 Whether your application needs a relational or non-relational database and which option to go for amongst the different engines avaialable.
 
-I have seen some databases being hosted on Kubernetes as stateful sets. However it is not best practice because of the risk involved, though it rarely happens sometimes the whole cluster could go down and having important infomation in your database possibly being unavailable for sometime is not advisable. For my application  choose to go with a fully managed database like AWS RDS or any cloud provider fully managed sevrice to manage the database externally. RDS provides automated backups and generally redcues overheads. If cost is an issue, then you can self host your databases on VMs so that your application can connect to them. Read replicas will be provisioned for read only along with a standby primary/master for read and write operations for fault tolerance
+I have seen some databases being hosted on Kubernetes as stateful sets resources. However it is not best practice because of the risk involved, sometimes the whole cluster could go down and having important infomation in your database possibly being unavailable for sometime is not advisable. For my application, I choose to go with a fully managed database like AWS RDS or any cloud provider fully managed sevrice to manage the database externally. RDS provides automated backups and generally reduces overheads. If cost is an issue, then you can self host your databases on VMs so that your application can connect to them. Read replicas will be provisioned for read only operations along with a standby primary/master for read and write operations for fault tolerance and HA.
 
 I will also pick postgres as my preferred engine because i am more familiar with it.
 
@@ -18,7 +18,7 @@ I will also pick postgres as my preferred engine because i am more familiar with
 
 For a self-managed kubermetes production environment. We can use the kubeadm tool to provision kubernetes on the VMs. We can an infrastructure as code tool like terraform or vagrant to provision our VMs to automate the process and mainatain uniformity acrooss the environment. In order for high availabilty we will provison 2 control planes and at least 3 worker nodes. All nodes will be provioned in the same private network.
 
-On a high level to install kubernetes with kubeadm:
+Installing Kubernetes with kubeadm tool:
 
     1. Install containter runtime
 
