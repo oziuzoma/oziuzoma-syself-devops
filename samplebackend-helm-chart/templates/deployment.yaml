@@ -3,10 +3,10 @@ kind: Deployment
 metadata:
   labels:
     type: backend
-  name: {{ .Release.Name }}-deployment
+  name: {{ .Release.Name }}-deploy
   namespace: "{{ .Values.backend.namespace }}"
 spec:
-  replicas: 1
+  replicas: "{{ .Values.backend.replicaset }}"
   selector:
     matchLabels:
       type: backend
@@ -22,7 +22,7 @@ spec:
                 configMapKeyRef:
                   name: {{ .Release.Name }}-config
                   key: COLOR
-          image: "{{ .Values.backend.nginx }}"
+          image: oziomauzoma/backend:v1
           imagePullPolicy: Always
           name: sample-backend
           ports:

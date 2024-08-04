@@ -1,6 +1,6 @@
 backend:
   namespace: "syself"
   color: "blue"
-  port: "80"
-  targetport: "8080"
-  image: "nginx"
+  port: "5000"
+  targetport: "5000"
+  replicaset: 2
