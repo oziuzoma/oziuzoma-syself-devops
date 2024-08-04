@@ -19,6 +19,7 @@ whether your application needs a relational or non-relational database and which
  For a self-managed kubermetes production environment. We can use the kubeadm tool to provision kubernetes on the VMs. We can a tool like terraform or vagrant to provision our VMs to automate the process and mainatain uniformity acrooss the environment. In order for high availabilty we will provison 2 control planes and at least 3 worker nodes. All nodes will be provioned in the same private network.
 
  On a high level to install kubernetes with kubeadm:
+
     1. Install containter runtime
 
     2. Install kubeadm , kubelet and kubectl
@@ -48,7 +49,7 @@ whether your application needs a relational or non-relational database and which
 
     **container runtime** - "A fundamental component that empowers Kubernetes to run containers effectively. It is responsible for managing the execution and lifecycle of containers within the Kubernetes environment."
 
-    __kube-proxy__ - "A network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept."
+    `kube-proxy` - "A network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept."
 
 
 
