@@ -18,7 +18,7 @@ whether your application needs a relational or non-retional database and which o
 
 
 
- #REFERENCES:
+ # REFERENCES:
 
  [Helm Docs](https://helm.sh/docs/topics/charts/)
  [Kubernetes Docs](https://kubernetes.io/docs/home/)
