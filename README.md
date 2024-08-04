@@ -1,10 +1,10 @@
 # oziuzoma-syself-devops
 
-#Question 1 - Helm Chart to deploy a sample backend
+# Question 1 - Helm Chart to deploy a sample backend
 
 Helm Chart for the backend application can be found in the repo called samplebackend-helm-chart.
 
-##There are a few considerations to make to selecting a database:
+## There are a few considerations to make to selecting a database:
 
 Whether you want a self managed database or a fully managed database
 whether your application needs a relational or non-retional database and which option to go for amongst the different engines avaialable.
@@ -13,7 +13,7 @@ whether your application needs a relational or non-retional database and which o
 
  I will also pick postgres as my preferred engine because i am more familiar with it.
 
- #Question 2 - Helm Chart to deploy a sample backend
+ # Question 2 - Helm Chart to deploy a sample backend
 
 
 
@@ -21,4 +21,4 @@ whether your application needs a relational or non-retional database and which o
  #REFERENCES:
 
  [Helm Docs](https://helm.sh/docs/topics/charts/)
- [Kubernetes Docs] (https://kubernetes.io/docs/home/)
+ [Kubernetes Docs](https://kubernetes.io/docs/home/)
