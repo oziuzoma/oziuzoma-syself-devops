@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    type: backend
+  name: {{ .Release.Name }}-deployment
+  namespace: "{{ .Values.backend.namespace }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      type: backend
+  template:
+    metadata:
+      labels:
+        type: backend
+    spec:
+      containers:
+        - env:
+            - name: COLOR
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Release.Name }}-config
+                  key: COLOR
+          image: "{{ .Values.backend.nginx }}"
+          imagePullPolicy: Always
+          name: sample-backend
+          ports:
+            - containerPort: "{{ .Values.backend.port }}"
+              protocol: TCP

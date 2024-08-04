@@ -1,0 +1,6 @@
+backend:
+  namespace: "syself"
+  color: "blue"
+  port: "80"
+  targetport: "8080"
+  image: "nginx"
