@@ -16,7 +16,7 @@ I will also pick postgres as my preferred engine because i am more familiar with
 
  # Question 2 - Production-grade Kubernetes environment
 
-For a self-managed kubermetes production environment. We can use the kubeadm tool to provision kubernetes on the VMs. We can an infrastructure as code tool like terraform or vagrant to provision our VMs to automate the process and mainatain uniformity acrooss the environment. In order for high availabilty we will provison 2 control planes and at least 3 worker nodes. All nodes will be provioned in the same private network.
+For a self-managed kubermetes production environment. We can use the kubeadm tool to provision kubernetes on the VMs. We can an infrastructure as code tool like terraform or vagrant to provision our VMs to automate the process and mainatain uniformity acrooss the environment. In order for high availabilty we will provison 2 control planes and at least 3 worker nodes. All nodes will be provioned in the same private network and have the neccesary CPU, RAM and Storage requirements to match the type of appplications that are going to deployed onto Kubernetes.
 
 Installing Kubernetes with kubeadm tool:
 
@@ -55,6 +55,8 @@ Installing Kubernetes with kubeadm tool:
 ### Storage: 
 
 ### Security:
+
+### Monitoring and Observability:
 
 ### Disaster Recovery and Backup:
 
