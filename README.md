@@ -16,7 +16,7 @@ whether your application needs a relational or non-relational database and which
 
  # Question 2 - Production-grade Kubernetes environment
 
- For a self-managed kubermetes production environment. We can use the kubeadm tool to provision kubernetes on the VMs. We can a tool like terraform or vagrant to provision our VMs to automate the process and mainatain uniformity acrooss the environment. In order for high availabilty we will provison 2 control planes and at least 3 worker nodes. All nodes will be provioned in the same private network.
+ For a self-managed kubermetes production environment. We can use the kubeadm tool to provision kubernetes on the VMs. We can an infrastructure as code tool like terraform or vagrant to provision our VMs to automate the process and mainatain uniformity acrooss the environment. In order for high availabilty we will provison 2 control planes and at least 3 worker nodes. All nodes will be provioned in the same private network.
 
  On a high level to install kubernetes with kubeadm:
 
