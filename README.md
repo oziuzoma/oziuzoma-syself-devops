@@ -50,15 +50,28 @@ Installing Kubernetes with kubeadm tool:
 
 **container runtime** - "A fundamental component that empowers Kubernetes to run containers effectively. It is responsible for managing the execution and lifecycle of containers within the Kubernetes environment."
 
-`kube-proxy` - "A network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept."
+**kube-proxy** - "A network proxy that runs on each node in your cluster, implementing part of the Kubernetes Service concept."
 
 ### Storage: 
 
+A container storage interface (CSI) is a plugin that mediates between the underlying storage and the cluster such that pods can make use of external storage. The appropriate CSI should be installed into the cluster by following its documentation. Once installed storage classes can be created and the csi can be specified as its provioner.
+
+Storage Classes dynamically provision the persistent volumes that the pods will use.Pods make a claim these PVs via a persistent volume claim(PVC) which specifies the storgage class. The storage defines the requirements of the volume needed and once a pod makes its claim, the PV is created by the storage class and bound to the pod.
+
 ### Security:
+
+This layer defines authention and authorization to the cluster. Users who can have access to the cluster and the kubeconfig they will use to access the cluster
+and  what level of access they will have will depend on the roles, cluster roles, cluster role and role bindings. The difference between the role and cluster role is that the role is bound to a namespace only while a cluster role isn't. By default, all pods can communicate with eachother however we can use network policies to restrict communication. Network poilices are only enforced by certain CNI like calico,weave-net. If you use an unsupported CNI they will be created but will not enforce the restrictions.
+
 
 ### Monitoring and Observability:
 
+We can provision open source tools like Promotheus, Grafana and Loki. Loki is for log aggregrationa dn can be configured to export the logs to a remote storage. Prometheus exports metrics from the nodes via a node exporter that will be installed on the nodes, it can also be integrated with an alert manager for alerts to notify the team via email,slack,etc for any discrepancies . Grafana is used to visulaize the metrics and make sense of them. It will take loki and Promethus as data sources and then use the metrics for various dashboards.
+
 ### Disaster Recovery and Backup:
+
+Regular snapshots of the nodes, etcd and all storage should be scheduled during a 
+maintenance window. 
 
  ## REFERENCES:
 
