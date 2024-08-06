@@ -7,21 +7,21 @@ Helm Chart for the backend application can be found in the repo called `sampleba
 `helm install release-name samplebackend-helm-chart/ --namespace syself --
 create-namespace`
 
-For Secret Management, an external secret manager or vault to store secrets and have them synced into the cluster. It is not best practice to push secrets into version control. For example, I have worked with Azure Keyvault where the controller is installed into the cluster then Keyvault resouces which reference the secrets in azure are created and synced to be used by pods. That is the general idea for secret management tools and a better way to handled kubernetes secrets. As the database becomes available, the deployment manifest in git will be updated to reflect the database connection infomation pulling from the synced secret. 
+For Secret Management, an external secret manager or vault to store secrets is used and synced into the cluster. It is not best practice to push secrets into version control. For example, I have worked with Azure Keyvault where the controller is installed into the cluster then Keyvault resouces which reference the secrets in azure are created and synced to be used by pods. As the database becomes available, the deployment manifest in git will be updated to reflect the database connection details from the secret. 
 
 ## There are a few considerations to make to selecting a database
 
 Whether you want a self managed database or a fully managed database.
 
-Whether your application needs a relational or non-relational database and which option to go for amongst the different engines avaialable.
+Whether your application needs a relational or non-relational database and which DB engine.
 
-I have seen some databases being hosted on Kubernetes as Statefulsets. However, it is not best practice because of the risk involved, sometimes the whole cluster could go down and having databases possibly being unavailable for sometime is not advisable. For my application, I choose to go with a fully managed database like AWS RDS or any cloud provider fully managed service. It provides automated backups and generally reduces overheads. If cost is an issue, then you can self host your databases on VMs so that your applications can connect to them. Read replicas will be provisioned for read only operations along with a standby primary/master for read and write operations for fault tolerance and HA.
+Databases on Kubernetes are typically deployed as Statefulsets. However, it is not best practice because of the risk involved. For my application, I choose to provision a fully managed database in the cloud. It provides automated backups and generally reduces overheads. If cost is an issue, you can self host your databases on VMs. Database read replicas will be provisioned for read only operations along with a standby primary for read and write operations for fault tolerance and HA.
 
-Postgres DB will be provisoned because it is robust and I am more familiar with it.
+Postgres DB is recommended because it is robust and I am more familiar with it.
 
  # Question 2 - Production-grade Kubernetes environment
 
-For a self-managed kubernetes production environment. We can use the kubeadm tool to provision kubernetes on the VMs. We can an infrastructure as code tool like terraform or vagrant to provision our VMs to automate the process and mainatain uniformity across the environment. For high availabilty, we will provison 2 control planes and at least 3 worker nodes. All nodes will be provioned in the same private network and have the neccesary CPU, RAM and Storage requirements to match the type of appplications that are going to deployed onto Kubernetes.
+For a self-managed kubernetes production environment, the kubeadm tool can be used to setup kubernetes on the VMs. Infrastructure as code tools like terraform or vagrant will provision our VMs to automate the process and mainatain uniformity across different environments. For high availabilty, the cluster will consist of 2 control planes and at least 3 worker nodes. All nodes will be in a private network and have the neccesary CPU, RAM and Storage requirements to suit workloads deployed on K8s.
 
 Installing Kubernetes with kubeadm tool:
 
@@ -33,11 +33,9 @@ Installing Kubernetes with kubeadm tool:
 
     4. Initialize the control plane using kubeadm init and passing the neccessary arguments
 
-    5. Deploy a pod network (CNI plugin) like calico and weave-net especially if you plan to use network policies later for security
+    5. Deploy a pod network (CNI plugin) like calico for network policies
 
     6. Join the worker nodes using kudeadm join and token from the output from step 4.
-
-    7. Now you have a cluster of 3 worker and 2 masters with kubernetes installed
 
  ### Control Plane Components
 
@@ -59,19 +57,21 @@ Installing Kubernetes with kubeadm tool:
 
 ### Storage 
 
-A container storage interface (CSI) is a plugin that mediates between the underlying storage and the cluster such that pods can make use of external storage. The appropriate CSI should be installed into the cluster by following its documentation. Once installed, storage classes can be created and CSI can be specified as its provioner.
+A container storage interface (CSI) is a plugin that mediates between the underlying storage and the cluster such that pods can make use of external storage. The appropriate CSI should be installed into the cluster by following documentation. Once installed, storage classes can be created and CSI can be specified as its provioner.
 
-Storage Classes dynamically provision the persistent volumes and defines the requirements of the volume needed. Pods make a claim to these PVs via a persistent volume claim (PVC) which specifies the storage class. A pod makes its claim, the PV is created by the storage class and bound to the pod.
+Storage Classes dynamically provision the persistent volumes and define the requirements of the volume needed. Pods make claim to these PVs via persistent volume claim (PVC) which specifies the storage class. A pod makes its claim, the PV is created by the storage class and bound to the pod.
 
 ### Security
 
 This layer defines authentication and authorization to the cluster. Users who can have access to the cluster and the kubeconfig they will use to access the cluster
-and  what level of access they will have will depend on the roles, cluster roles, cluster role and role bindings. The difference between the role and cluster role is that the role is bound to a namespace while a cluster role isn't. By default, all pods can communicate with eachother however we can use network policies to restrict communication. Network poilices are only enforced by certain CNI like Calico. If you use an unsupported CNI, they will be created but will not enforce restrictions.
+and  what level of access they will have depends on the roles, cluster roles, cluster role and role bindings (RBAC). The difference between the role and cluster role is that the role is bound to a namespace while a cluster role isn't.
+
+By default, all pods can communicate with eachother however we can use network policies to restrict communication. Network poilices are only enforced by certain CNI like Calico. If you use an unsupported CNI, they will be created but will not enforce restrictions.
 
 
 ### Monitoring and Observability
 
-We can provision open source tools like Prometheus, Grafana and Loki for continuous monitoring. Loki is for log aggregrationa dn can be configured to export the logs to a remote storage. Prometheus exports metrics from the nodes via a node exporter that will be installed on the nodes, it can also be integrated with an alert manager for alerts to notify the team via email/slack. Grafana is used to visualize the metrics, It will take loki and Prometheus as data sources and then use the metrics for various dashboards.
+We can provision open source tools like Prometheus, Grafana and Loki for continuous monitoring. Loki is for log aggregration and can be configured to export the logs to remote storage. Prometheus exports metrics from the nodes via a node exporter that is installed on the nodes, it can also be integrated with an alert manager for alerts to notify the team via email/slack. Grafana is used to visualize the metrics, it takes Loki and Prometheus as data sources and then use the metrics for various dashboards.
 
 ### Disaster Recovery and Backup
 
@@ -80,7 +80,7 @@ maintenance window.
 
 ### Post Kubernetes Installation
 
-A GitOps tool called ArgoCD can be used to deploy manifest files into the destination clusters. It is best practice to check on manifest into version control and not apply manifests directly via `kubectl`. Destination clusters are added to ArgoCD as kubernetes secrets and applications are created to sync resources. Application sets can also be used to automate the creation of ArgoCD applications.
+A GitOps tool called ArgoCD can be used to deploy manifest files into destination clusters. It is best practice to check in manifest files into version control and not apply manifests directly via `kubectl`. Destination clusters are added to ArgoCD as kubernetes secrets and applications are created to sync resources. Application sets can also be used to automate the creation of ArgoCD applications.
 
  ## REFERENCES:
 
