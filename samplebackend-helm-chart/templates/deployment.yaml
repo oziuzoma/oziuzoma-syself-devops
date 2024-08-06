@@ -4,9 +4,9 @@ metadata:
   labels:
     type: backend
   name: {{ .Release.Name }}-deploy
-  namespace: "{{ .Values.backend.namespace }}"
+  namespace: {{ .Values.backend.namespace }}
 spec:
-  replicas: "{{ .Values.backend.replicaset }}"
+  replicas: {{ .Values.backend.replicaset }}
   selector:
     matchLabels:
       type: backend
@@ -26,5 +26,5 @@ spec:
           imagePullPolicy: Always
           name: sample-backend
           ports:
-            - containerPort: "{{ .Values.backend.port }}"
+            - containerPort: {{ .Values.backend.port }}
               protocol: TCP

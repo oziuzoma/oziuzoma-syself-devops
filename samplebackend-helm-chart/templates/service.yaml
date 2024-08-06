@@ -5,11 +5,11 @@ metadata:
   labels:
     type: backend
   name: {{ .Release.Name }}-service
-  namespace: "{{ .Values.backend.namespace }}"
+  namespace: {{ .Values.backend.namespace }}
 spec:
   ports:
     - name: "5000" 
-      port: "{{ .Values.backend.port }}"
-      targetPort: "{{ .Values.backend.targetport}}"
+      port: {{ .Values.backend.port }}
+      targetPort: {{ .Values.backend.targetport}}
   selector:
     type: backend
