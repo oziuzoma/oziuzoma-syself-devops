@@ -2,7 +2,12 @@
 
 # Question 1 - Helm Chart to deploy a sample backend
 
-Helm Chart for the backend application can be found in the repo called `samplebackend-helm-chart`. It deploys a NodeJS backend application which is a placeholder image for the purpose of this task. This backend application will be exposed on port 5000 via a ClusterIP service for internal cluster access only. For Secret Management, an external secret manager or vault to store secrets and have them synced into the cluster. It is not best practice to push secrets into version control. For example, I have worked with Azure Keyvault where the controller is installed into the cluster then Keyvault resouces which reference the secrets in azure are created and synced to be used by pods. That is the general idea for secret management tools and a better way to handled kubernetes secrets. As the database becomes available, the deployment manifest in git will be updated to reflect the database connection infomation pulling from the synced secret. 
+Helm Chart for the backend application can be found in the repo called `samplebackend-helm-chart`. It deploys a NodeJS backend application which is a placeholder image for the purpose of this task. This backend application will be exposed on port 5000 via a ClusterIP service for internal cluster access only. 
+
+`helm install release-name samplebackend-helm-chart/ --namespace syself --
+create-namespace`
+
+For Secret Management, an external secret manager or vault to store secrets and have them synced into the cluster. It is not best practice to push secrets into version control. For example, I have worked with Azure Keyvault where the controller is installed into the cluster then Keyvault resouces which reference the secrets in azure are created and synced to be used by pods. That is the general idea for secret management tools and a better way to handled kubernetes secrets. As the database becomes available, the deployment manifest in git will be updated to reflect the database connection infomation pulling from the synced secret. 
 
 ## There are a few considerations to make to selecting a database
 
