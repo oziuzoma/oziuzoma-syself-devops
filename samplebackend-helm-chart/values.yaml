@@ -1,6 +1,6 @@
 backend:
-  namespace: "syself"
-  color: "blue"
-  port: "5000"
-  targetport: "5000"
+  namespace: syself
+  color: blue
+  port: 5000
+  targetport: 5000
   replicaset: 2
